@@ -1,7 +1,7 @@
-import 'package:boilerplate/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:boilerplate/feature/auth/domain/entities/user.dart';
-import 'package:boilerplate/feature/auth/domain/repositories/auth_repository.dart';
-import 'package:boilerplate/feature/auth/domain/usecase/login_usecase.dart';
+﻿import 'package:wedding/feature/auth/data/repositories/auth_repository_impl.dart';
+import 'package:wedding/feature/auth/domain/entities/user.dart';
+import 'package:wedding/feature/auth/domain/repositories/auth_repository.dart';
+import 'package:wedding/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -27,14 +27,14 @@ void main() {
     setUp(() {
       container = ProviderContainer(
         overrides: [
-          // 도메인 레이어의 authRepositoryProvider를 Fake로 교체
+          // ?꾨찓???덉씠?댁쓽 authRepositoryProvider瑜?Fake濡?援먯껜
           authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
         ],
       );
       addTearDown(container.dispose);
     });
 
-    test('이메일/비밀번호로 로그인하면 User를 반환한다', () async {
+    test('?대찓??鍮꾨?踰덊샇濡?濡쒓렇?명븯硫?User瑜?諛섑솚?쒕떎', () async {
       // given
       final useCase = container.read(loginUseCaseProvider);
 
@@ -50,7 +50,7 @@ void main() {
       expect(user.name, 'Test User');
     });
 
-    test('이메일이 비어 있으면 예외를 던진다 (비즈니스 검증 예시)', () async {
+    test('?대찓?쇱씠 鍮꾩뼱 ?덉쑝硫??덉쇅瑜??섏쭊??(鍮꾩쫰?덉뒪 寃利??덉떆)', () async {
       final useCase = container.read(loginUseCaseProvider);
 
       expect(

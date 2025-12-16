@@ -1,7 +1,7 @@
-import 'package:boilerplate/feature/auth/data/datasource/auth_datasource.dart';
-import 'package:boilerplate/feature/auth/data/models/user_model.dart';
-import 'package:boilerplate/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:boilerplate/feature/auth/domain/entities/user.dart';
+﻿import 'package:wedding/feature/auth/data/datasource/auth_datasource.dart';
+import 'package:wedding/feature/auth/data/models/user_model.dart';
+import 'package:wedding/feature/auth/data/repositories/auth_repository_impl.dart';
+import 'package:wedding/feature/auth/domain/entities/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,4 +1,4 @@
-import 'package:boilerplate/feature/auth/domain/usecase/login_usecase.dart';
+﻿import 'package:wedding/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +16,7 @@ class LoginViewModel extends _$LoginViewModel {
     required String email,
     required String password,
   }) async {
-    // 상태: 로딩
+    // ?곹깭: 濡쒕뵫
     state = state.copyWith(
       status: LoginStatus.loading,
       errorMessage: null,

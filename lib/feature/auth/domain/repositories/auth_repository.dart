@@ -1,6 +1,6 @@
-import 'package:boilerplate/feature/auth/domain/entities/user.dart';
+﻿import 'package:wedding/feature/auth/domain/entities/user.dart';
 
-// 인터페이스만 구현 어떤 기능이 필요한지만
+// ?명꽣?섏씠?ㅻ쭔 援ы쁽 ?대뼡 湲곕뒫???꾩슂?쒖?留?
 abstract class AuthRepository {
   Future<User> login({
     required String email,

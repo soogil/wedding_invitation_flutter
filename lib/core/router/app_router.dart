@@ -1,4 +1,4 @@
-import 'package:boilerplate/feature/auth/presentation/login/login_page.dart';
+﻿import 'package:wedding/feature/auth/presentation/login/login_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -21,6 +21,6 @@ GoRouter appRouter(Ref ref) {
       //   builder: (context, state) => const HomePage(),
       // ),
     ],
-    // 추후 redirect, auth guard 등 추가 가능
+    // 異뷀썑 redirect, auth guard ??異붽? 媛??
   );
 }

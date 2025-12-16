@@ -1,4 +1,4 @@
-import 'package:boilerplate/feature/auth/domain/entities/user.dart';
+﻿import 'package:wedding/feature/auth/domain/entities/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'login_state.freezed.dart';

@@ -1,5 +1,5 @@
-import 'package:boilerplate/core/api/dio.dart';
-import 'package:boilerplate/feature/auth/data/models/user_model.dart';
+﻿import 'package:wedding/core/api/dio.dart';
+import 'package:wedding/feature/auth/data/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,7 +13,7 @@ abstract class AuthDataSource {
   });
 }
 
-/// 예제용 Fake 구현 (테스트/샘플용)
+/// ?덉젣??Fake 援ы쁽 (?뚯뒪???섑뵆??
 class AuthDatasourceImpl implements AuthDataSource {
   AuthDatasourceImpl(this._dio);
 

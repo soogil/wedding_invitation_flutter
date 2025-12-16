@@ -1,5 +1,5 @@
-import 'package:boilerplate/feature/auth/presentation/login/login_state.dart';
-import 'package:boilerplate/feature/auth/presentation/login/login_view_model.dart';
+﻿import 'package:wedding/feature/auth/presentation/login/login_state.dart';
+import 'package:wedding/feature/auth/presentation/login/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -42,7 +42,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // 이메일
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(
@@ -51,7 +50,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             const SizedBox(height: 12),
 
-            // 비밀번호
             TextField(
               controller: _passwordController,
               obscureText: true,
@@ -61,7 +59,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             const SizedBox(height: 24),
 
-            // 로그인 버튼
+            // 濡쒓렇??踰꾪듉
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -80,7 +78,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
             const SizedBox(height: 16),
 
-            // 에러 메시지
+            // ?먮윭 硫붿떆吏
             if (state.status == LoginStatus.failure &&
                 state.errorMessage != null)
               Text(
@@ -88,7 +86,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 style: const TextStyle(color: Colors.red),
               ),
 
-            // 성공 메시지
+            // ?깃났 硫붿떆吏
             if (state.status == LoginStatus.success && state.user != null)
               Padding(
                 padding: const EdgeInsets.only(top: 16),

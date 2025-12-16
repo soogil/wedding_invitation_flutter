@@ -1,12 +1,12 @@
-import 'package:boilerplate/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:boilerplate/feature/auth/domain/entities/user.dart';
-import 'package:boilerplate/feature/auth/domain/repositories/auth_repository.dart';
+﻿import 'package:wedding/feature/auth/data/repositories/auth_repository_impl.dart';
+import 'package:wedding/feature/auth/domain/entities/user.dart';
+import 'package:wedding/feature/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_usecase.g.dart';
 
-// 지금은 전달만 하지만 할일이 많음
+// 吏湲덉? ?꾨떖留??섏?留??좎씪??留롮쓬
 class LoginUseCase {
   final AuthRepository _authRepository;
 
@@ -16,18 +16,18 @@ class LoginUseCase {
     required String email,
     required String password,
   }) {
-    // 1. 형식 검증이 추가 될 수 도있고(UI 검증이면 viewmodel에서 처리,
-    // 비즈니스 규칙이면 usecase 처리 - 예를 들면 api사용해서 계정 확인을 해야할때
+    // 1. ?뺤떇 寃利앹씠 異붽? ?????꾩엳怨?UI 寃利앹씠硫?viewmodel?먯꽌 泥섎━,
+    // 鍮꾩쫰?덉뒪 洹쒖튃?대㈃ usecase 泥섎━ - ?덈? ?ㅻ㈃ api?ъ슜?댁꽌 怨꾩젙 ?뺤씤???댁빞?좊븣
     // if (email.isEmpty || password.isEmpty) {
-    //   throw DomainException('이메일과 비밀번호를 모두 입력해야 합니다.');
+    //   throw DomainException('?대찓?쇨낵 鍮꾨?踰덊샇瑜?紐⑤몢 ?낅젰?댁빞 ?⑸땲??');
     // }
     //
-    // // 이메일 형식 검증
+    // // ?대찓???뺤떇 寃利?
     // if (!email.contains('@')) {
-    //   throw DomainException('이메일 형식이 올바르지 않습니다.');
+    //   throw DomainException('?대찓???뺤떇???щ컮瑜댁? ?딆뒿?덈떎.');
     // }
 
-    // 2. 여러 리턴 값을 조합하는 경우
+    // 2. ?щ윭 由ы꽩 媛믪쓣 議고빀?섎뒗 寃쎌슦
     // final profile = await _profileRepository.fetchProfile(user.id);
     //
     // return (user, profile);
