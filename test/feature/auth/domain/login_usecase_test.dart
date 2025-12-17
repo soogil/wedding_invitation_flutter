@@ -1,9 +1,9 @@
-﻿import 'package:wedding/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:wedding/feature/auth/domain/entities/user.dart';
-import 'package:wedding/feature/auth/domain/repositories/auth_repository.dart';
-import 'package:wedding/feature/auth/domain/usecase/login_usecase.dart';
+﻿import 'package:wedding/feature/home/data/repositories/auth_repository_impl.dart';
+import 'package:wedding/feature/home/domain/entities/user.dart';
+import 'package:wedding/feature/home/domain/repositories/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wedding/feature/home/domain/usecase/login_usecase.dart';
 
 
 class FakeAuthRepository implements AuthRepository {

@@ -1,6 +1,6 @@
-﻿import 'package:wedding/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:wedding/feature/auth/domain/entities/user.dart';
-import 'package:wedding/feature/auth/domain/repositories/auth_repository.dart';
+﻿import 'package:wedding/feature/home/data/repositories/auth_repository_impl.dart';
+import 'package:wedding/feature/home/domain/entities/user.dart';
+import 'package:wedding/feature/home/domain/repositories/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

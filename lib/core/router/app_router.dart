@@ -1,19 +1,19 @@
-﻿import 'package:wedding/feature/auth/presentation/login/login_page.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:wedding/feature/home/presentation/login/wedding_announcement_page.dart';
 
 part 'app_router.g.dart';
 
 @riverpod
 GoRouter appRouter(Ref ref) {
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/weddingAnnounce',
     routes: [
       GoRoute(
-        path: '/login',
-        name: 'login',
-        builder: (context, state) => const LoginPage(),
+        path: '/weddingAnnounce',
+        name: 'weddingAnnounce',
+        builder: (context, state) => const WeddingAnnouncementPage(),
       ),
       // GoRoute(
       //   path: '/home',
@@ -21,6 +21,6 @@ GoRouter appRouter(Ref ref) {
       //   builder: (context, state) => const HomePage(),
       // ),
     ],
-    // 異뷀썑 redirect, auth guard ??異붽? 媛??
+    // 異뷀썑 redirect, home guard ??異붽? 媛??
   );
 }

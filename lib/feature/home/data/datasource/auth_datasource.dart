@@ -1,5 +1,5 @@
 ﻿import 'package:wedding/core/api/dio.dart';
-import 'package:wedding/feature/auth/data/models/user_model.dart';
+import 'package:wedding/feature/home/data/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,7 +25,7 @@ class AuthDatasourceImpl implements AuthDataSource {
     required String password,
   }) async {
     final response = await _dio.post(
-      '/auth/login',
+      '/home/login',
       data: {
         'email': email,
         'password': password,

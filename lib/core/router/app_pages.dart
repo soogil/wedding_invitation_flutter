@@ -1,14 +1,11 @@
 enum AppPage {
-  home,
-  login;
+  weddingAnnounce;
   //...;
 
   String get path {
     switch (this) {
-      case AppPage.home:
-        return '/';
-      case AppPage.login:
-        return '/login';
+      case AppPage.weddingAnnounce:
+        return '/weddingAnnounce';
       // case AppPage.settings:
       //   return '/settings';
     }
