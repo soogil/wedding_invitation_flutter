@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart'; // 파이어베이스
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class GuestBookPage extends StatefulWidget {
@@ -81,8 +81,8 @@ class _GuestBookPageState extends State<GuestBookPage> {
       builder: (context) => AlertDialog(
         title: const Text("축하 메시지 남기기"),
         content: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 350,
+          constraints: BoxConstraints(
+            maxWidth: 350.w,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -91,7 +91,7 @@ class _GuestBookPageState extends State<GuestBookPage> {
                 controller: _nameController,
                 decoration: const InputDecoration(labelText: "이름", hintText: "누구신가요?"),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               TextField(
                 controller: _msgController,
                 decoration: const InputDecoration(labelText: "메시지", hintText: "축하의 한마디!"),
@@ -118,7 +118,7 @@ class _GuestBookPageState extends State<GuestBookPage> {
               child: Text(
                   '방명록',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.notoSans(fontSize: 40)),
+                  style: TextStyle(fontSize: 40.sp)),
             ),
             Positioned(
               top: 0,
@@ -128,8 +128,8 @@ class _GuestBookPageState extends State<GuestBookPage> {
                   onPressed: _showWriteDialog,
                   child: Text(
                     '글남기기',
-                    style: GoogleFonts.notoSans(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: 15.sp,
                       color: Colors.black
                     ),
                   )
@@ -137,7 +137,7 @@ class _GuestBookPageState extends State<GuestBookPage> {
             )
           ],
         ),
-        const SizedBox(height: 40,),
+        SizedBox(height: 40.h),
         MasonryGridView.count(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -154,7 +154,7 @@ class _GuestBookPageState extends State<GuestBookPage> {
               decoration: BoxDecoration(
                 // _postItColors 변수가 위쪽에 정의되어 있어야 합니다
                 color: _postItColors[colorIndex % _postItColors.length],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
@@ -170,14 +170,14 @@ class _GuestBookPageState extends State<GuestBookPage> {
                     data['message'],
                     style: const TextStyle(height: 1.4, fontSize: 14),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.w),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
                       "- ${data['name']} -",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: Colors.black54,
                       ),
                     ),
@@ -214,7 +214,7 @@ class _GuestBookPageState extends State<GuestBookPage> {
     //             .orderBy('createdAt', descending: true)
     //             .snapshots(),
     //         builder: (context, snapshot) {
-    //           if (!snapshot.hasData) return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
+    //           if (!snapshot.wasData) return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
     //
     //           final docs = snapshot.data!.docs;
     //

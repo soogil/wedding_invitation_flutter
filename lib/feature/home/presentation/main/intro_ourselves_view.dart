@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class IntroOurselvesView extends StatelessWidget {
@@ -10,7 +10,7 @@ class IntroOurselvesView extends StatelessWidget {
     return Column(
         children: [
           _introParents(),
-          const SizedBox(height: 150,),
+          SizedBox(height: 150.h),
           _introOurselves(),
     ]);
   }
@@ -20,37 +20,61 @@ class IntroOurselvesView extends StatelessWidget {
       children: [
         Text(
           "부모님 소개",
-          style: GoogleFonts.notoSans(
-            fontSize: 40,
+          style: TextStyle(
+            fontSize: 40.sp,
           ),
         ),
-        const SizedBox(height: 15,),
+        SizedBox(height: 15.h),
         Padding(
             padding: EdgeInsets.only(left: 15, right: 15),
             child: Divider(height: 1,)
         ),
-        const SizedBox(height: 15,),
+        SizedBox(height: 15.h),
         Text(
           "저희의 시작을 사랑으로 응원해주신\n"
               "양가 부모님을 소개합니다.",
           textAlign: TextAlign.center,
-          style: GoogleFonts.notoSans(
-            fontSize: 20,
+          style: TextStyle(
+            fontSize: 20.sp,
           ),
         ),
-        const SizedBox(height: 30,),
+        SizedBox(height: 30.h),
+        // GridView.count(
+        //   mainAxisSpacing: 10,
+        //   physics: NeverScrollableScrollPhysics(),
+        //   shrinkWrap: true,
+        //   crossAxisCount: 2,
+        //   children: [
+        //     _introCard(
+        //       imagePath: 'assets/parent_kim.png',
+        //       label: '신랑 김수길의 부모님',
+        //       parentNames: '김윤규 ♡ 박인숙',
+        //     ),
+        //     _introCard(
+        //       imagePath: 'assets/parent_you.png',
+        //       label: '신부 유연정의 부모님',
+        //       parentNames: '유용청 ♡ 전미용',
+        //     ),
+        //   ],
+        // ),
+
+       
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _introCard(
-              imagePath: 'assets/parent_kim.png',
-              label: '신랑 김수길의 부모님',
-              parentNames: '김윤규 ♡ 박인숙',
+            Expanded(
+              child: _introCard(
+                imagePath: 'assets/parent_kim.png',
+                label: '신랑 김수길의 부모님',
+                parentNames: '김윤규 ♡ 박인숙',
+              ),
             ),
-            _introCard(
-              imagePath: 'assets/parent_you.png',
-              label: '신부 유연정의 부모님',
-              parentNames: '유용청 ♡ 전미용',
+            const SizedBox(width: 10),
+            Expanded(
+              child: _introCard(
+                imagePath: 'assets/parent_you.png',
+                label: '신부 유연정의 부모님',
+                parentNames: '유용청 ♡ 전미용',
+              ),
             ),
           ],
         )
@@ -63,13 +87,13 @@ class IntroOurselvesView extends StatelessWidget {
       children: [
         Text(
           "신랑 신부 소개",
-          style: GoogleFonts.notoSans(
-            fontSize: 40,
+          style: TextStyle(
+            fontSize: 40.sp,
           ),
         ),
-        const SizedBox(height: 15,),
+        SizedBox(height: 15.h),
         Padding(
-            padding: EdgeInsets.only(left: 15, right: 15),
+            padding: EdgeInsets.only(left: 15.w, right: 15.w),
             child: Divider(height: 1,)
         ),
         // const SizedBox(height: 15,),
@@ -77,23 +101,27 @@ class IntroOurselvesView extends StatelessWidget {
         //   "저희의 시작을 사랑으로 응원해주신\n"
         //       "양가 부모님을 소개합니다.",
         //   textAlign: TextAlign.center,
-        //   style: GoogleFonts.notoSans(
+        //   style: TextStyle(
         //     fontSize: 20,
         //   ),
         // ),
-        const SizedBox(height: 45,),
+        SizedBox(height: 45.h),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _introCard(
-              imagePath: 'assets/kim.jpg',
-              label: '',
-              parentNames: '신랑 김수길',
+            Expanded(
+              child: _introCard(
+                imagePath: 'assets/kim.jpg',
+                label: '',
+                parentNames: '신랑 김수길',
+              ),
             ),
-            _introCard(
-              imagePath: 'assets/you.jpg',
-              label: '',
-              parentNames: '신부 유연정',
+            const SizedBox(width: 10),
+            Expanded(
+              child: _introCard(
+                imagePath: 'assets/you.jpg',
+                label: '',
+                parentNames: '신부 유연정',
+              ),
             ),
           ],
         )
@@ -109,26 +137,26 @@ class IntroOurselvesView extends StatelessWidget {
     return Column(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
           child: Image.asset(
             imagePath,
-            width: 200,
-            height: 350,
+            width: 180,
+            height: 250,
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(height: 15,),
+        SizedBox(height: 15.h),
         Text(
           label,
-          style: GoogleFonts.notoSans(
-            fontSize: 15,
+          style: TextStyle(
+            fontSize: 15.sp,
           ),
         ),
-        const SizedBox(height: 5,),
+        SizedBox(height: 5.h),
         Text(
           parentNames,
-          style: GoogleFonts.notoSans(
-            fontSize: 20,
+          style: TextStyle(
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),
         )

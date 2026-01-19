@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:image_viewer_page/image_viewer_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 
 class GalleryView extends StatelessWidget {
@@ -31,14 +32,14 @@ class GalleryView extends StatelessWidget {
   ];
 
 
-  final List<ImageTransitionStyle> transitionStyles = const [
-    ImageTransitionStyle.slide,
-    ImageTransitionStyle.fade,
-    ImageTransitionStyle.scale,
-    ImageTransitionStyle.flip,
-    ImageTransitionStyle.cube,
-    ImageTransitionStyle.rotate,
-  ];
+  // final List<ImageTransitionStyle> transitionStyles = const [
+  //   ImageTransitionStyle.slide,
+  //   ImageTransitionStyle.fade,
+  //   ImageTransitionStyle.scale,
+  //   ImageTransitionStyle.flip,
+  //   ImageTransitionStyle.cube,
+  //   ImageTransitionStyle.rotate,
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +48,16 @@ class GalleryView extends StatelessWidget {
       children: [
         Text(
           "웨딩 사진",
-          style: GoogleFonts.notoSans(
-            fontSize: 40,
+          style: TextStyle(
+            fontSize: 40.sp,
           ),
         ),
         const SizedBox(height: 15,),
         Padding(
-            padding: EdgeInsets.only(left: 15, right: 15),
+            padding: EdgeInsets.only(left: 15.w, right: 15.w),
             child: Divider(height: 1,)
         ),
-        const SizedBox(height: 45,),
+        SizedBox(height: 45.w),
         GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -71,51 +72,50 @@ class GalleryView extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  ImageViewerNavigator.push(
+                  Navigator.push(
                     context,
-                    imageUrls: imageUrls,
-                    initialIndex: index,
-                    transitionStyle: ImageTransitionStyle.slide,
+                    MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                        // 닫기 버튼을 위한 앱바 (선택사항)
+                        appBar: AppBar(
+                          backgroundColor: Colors.black,
+                          leading: IconButton(
+                            icon: const Icon(Icons.close, color: Colors.white),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                        body: Container(
+                          color: Colors.black, // 배경 검은색
+                          child: PhotoViewGallery.builder(
+                            scrollPhysics: const BouncingScrollPhysics(),
+                            builder: (BuildContext context, int index) {
+                              return PhotoViewGalleryPageOptions(
+                                // ✅ 핵심: 여기서 AssetImage라고 명시해줘야 합니다!
+                                imageProvider: AssetImage(imageUrls[index]),
+
+                                // 만약 나중에 인터넷 이미지라면 NetworkImage(imageUrls[index]) 쓰면 됨
+                                initialScale: PhotoViewComputedScale.contained,
+                                minScale: PhotoViewComputedScale.contained,
+                                maxScale: PhotoViewComputedScale.covered * 2,
+                                heroAttributes: PhotoViewHeroAttributes(tag: '${imageUrls[index]}_$index'),
+                              );
+                            },
+                            itemCount: imageUrls.length,
+                            loadingBuilder: (context, event) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            // 처음에 몇 번째 사진부터 보여줄지 설정
+                            pageController: PageController(initialPage: index),
+                          ),
+                        ),
+                      ),
+                    ),
                   );
-                  // Navigator.of(context).push(
-                  //   PageRouteBuilder(
-                  //     opaque: false,
-                  //     barrierColor: Colors.black.withOpacity(0),
-                  //     pageBuilder: (_, __, ___) => ImageViewerPage(
-                  //       imageUrls: imageUrls,
-                  //       initialIndex: index,
-                  //       transitionStyle:
-                  //           transitionStyles[index % transitionStyles.length],
-                  //     ),
-                  //     transitionsBuilder:
-                  //         (context, animation, secondaryAnimation, child) {
-                  //       return FadeTransition(
-                  //         opacity: animation,
-                  //         child: child,
-                  //       );
-                  //     },
-                  //   ),
-                  // );
-                  /// For Getx navigator
-                  // Get.to(
-                  //   () => ImageViewerPage(
-                  //     imageUrls: imageUrls,
-                  //     initialIndex: index,
-                  //     transitionStyle:
-                  //         transitionStyles[index % transitionStyles.length],
-                  //   ),
-                  //   fullscreenDialog: true,
-                  //   opaque: false, // <-- This is the key!
-                  //   transition:
-                  //       Transition.noTransition, // We'll control animation manually
-                  //   popGesture: true,
-                  //   curve: Curves.easeInOut,
-                  // );
                 },
                 child: Hero(
                   tag: heroTag,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     child: Image.asset(
                       imageUrls[index],
                       fit: BoxFit.cover,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 
@@ -44,15 +44,21 @@ class TimeLineView extends StatelessWidget {
           child: Center(
             child: Text(
               "연애 타임라인",
-              style: GoogleFonts.notoSans(
-                fontSize: 40
+              style: TextStyle(
+                fontSize: 40.sp
               )
             ),
           ),
         ),
 
-        // 타임라인 리스트
+        SizedBox(height: 15.h),
+        Padding(
+            padding: EdgeInsets.only(left: 15.w, right: 15.w),
+            child: Divider(height: 1,)
+        ),
+        SizedBox(height: 15.h),
         ListView.builder(
+          padding: EdgeInsets.all(0),
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
@@ -60,7 +66,7 @@ class TimeLineView extends StatelessWidget {
             final isLeft = index % 2 == 0; // 짝수는 왼쪽, 홀수는 오른쪽
 
             return SizedBox(
-              height: 200, // 각 타임라인 높이
+              height: 200.h, // 각 타임라인 높이
               child: TimelineTile(
                 alignment: TimelineAlign.center,
                 // 중앙 정렬
@@ -75,8 +81,8 @@ class TimeLineView extends StatelessWidget {
 
                 // ✅ 타임라인 중앙 아이콘 (하트)
                 indicatorStyle: IndicatorStyle(
-                  width: 30,
-                  height: 30,
+                  width: 30.w,
+                  height: 30.w,
                   indicator: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFFF6F2EA),
@@ -84,10 +90,10 @@ class TimeLineView extends StatelessWidget {
                           color: const Color(0xFFD4C4B7), width: 2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                         Icons.favorite,
                         color: Color(0xFFFF8A80),
-                        size: 16
+                        size: 16.sp
                     ),
                   ),
                   drawGap: true, // 선과 아이콘 사이 여백
@@ -121,6 +127,7 @@ class TimeLineView extends StatelessWidget {
       child: Text(
         date,
         style: TextStyle(
+          fontSize: 10.sp,
           color: Colors.grey[600],
           fontWeight: FontWeight.bold,
           fontFamily: 'NotoSerifKR', // 한글 폰트 추천
@@ -143,7 +150,7 @@ class TimeLineView extends StatelessWidget {
         children: [
           // 사진 둥글게
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
             child: Image.asset(
               event['image']!, // 실제 이미지가 없으면 에러나니 주의
               width: 300,
@@ -154,12 +161,12 @@ class TimeLineView extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             event['title']!,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
             textAlign: isLeft ? TextAlign.right : TextAlign.left,
           ),
           Text(
             event['desc']!,
-            style: TextStyle(color: Colors.grey[600], fontSize: 12),
+            style: TextStyle(color: Colors.grey[600], fontSize: 11.sp),
             textAlign: isLeft ? TextAlign.right : TextAlign.left,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

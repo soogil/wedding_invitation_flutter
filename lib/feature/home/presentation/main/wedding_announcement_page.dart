@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wedding/feature/home/presentation/main/gallery_view.dart';
 import 'package:wedding/feature/home/presentation/main/guest_book_view.dart';
 import 'package:wedding/feature/home/presentation/main/intro_ourselves_view.dart';
@@ -15,12 +16,13 @@ class WeddingAnnouncementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainIntroView(
         children: [
-          SizedBox(height: 18),
+          SizedBox(height: 18.h),
           Center(
             child: Text(
               "가족들과 함께하는 작은 예식을 올립니다\n\n",
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -39,18 +41,18 @@ class WeddingAnnouncementPage extends StatelessWidget {
                   "예쁘게 잘 살겠습니다.\n\n"
                   "김수길 · 유연정 올림",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, height: 1.7),
+              style: TextStyle(fontSize: 16.sp, height: 1.7),
             ),
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 100.h),
           TimeLineView(),
-          SizedBox(height: 150),
+          SizedBox(height: 150.h),
           IntroOurselvesView(),
-          SizedBox(height: 150),
+          SizedBox(height: 150.h),
           GalleryView(),
-          SizedBox(height: 150),
+          SizedBox(height: 150.h),
           GuestBookPage(),
-          SizedBox(height: 100),
+          SizedBox(height: 100.h),
         ]
     );
   }

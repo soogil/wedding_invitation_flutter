@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class MainIntroView extends StatefulWidget {
@@ -79,7 +79,7 @@ class _MainIntroViewState extends State<MainIntroView>
                               Image(image: heroImage1, fit: BoxFit.contain),
                               Container(
                                   color: Colors.black.withValues(alpha: 0.18)),
-                              const Positioned(
+                              Positioned(
                                 left: 20, right: 20, bottom: 24,
                                 child: _MainHeroText(),
                               ),
@@ -93,7 +93,7 @@ class _MainIntroViewState extends State<MainIntroView>
                     SliverToBoxAdapter(
                       child: _ResponsiveWrapper(
                         child: Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: widget.children
@@ -166,7 +166,7 @@ class _ResponsiveWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 480),
+        constraints: BoxConstraints(maxWidth: 480),
         color: isOverlay ? null : const Color(0xFFF6F2EA),
         width: double.infinity,
         child: child,
@@ -184,14 +184,15 @@ class _IntroTitle extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 450),
+          SizedBox(height: 450),
           Transform.rotate(
             angle: -0.15,
-              child: Text("We Are\nGetting Married", style: GoogleFonts.indieFlower(
-                fontSize: 55,
+              child: Text("We Are\nGetting Married", style: TextStyle(
+                fontFamily: 'IndieFlower',
+                fontSize: 50.sp,
             ),),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
         ],
       ),
     );
@@ -208,13 +209,17 @@ class _MainHeroText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("김수길 ❤️ 유연정", style: TextStyle(fontSize: 28, height: 1.1)),
-          const SizedBox(height: 8),
-          Text("We Are Getting Married", style: TextStyle(fontSize: 18, color: Colors.white.withValues(alpha: 0.9))),
-          const SizedBox(height: 10),
-          Container(height: 1, width: 140, color: Colors.white.withValues(alpha: 0.45)),
-          const SizedBox(height: 10),
-          Text("2026. 06. 14", style: TextStyle(color: Colors.white.withValues(alpha: 0.75))),
+          Text("김수길 ❤️ 유연정", style: TextStyle(fontSize: 28.sp, height: 1.1)),
+          SizedBox(height: 8.h),
+          Text("We Are Getting Married", style: TextStyle(fontSize: 18.sp, color: Colors.white.withValues(alpha: 0.9))),
+          SizedBox(height: 10.h),
+          Container(height: 1,
+              width: 140.w,
+              color: Colors.white.withValues(alpha: 0.45)),
+          SizedBox(height: 10.h),
+          Text("2026. 06. 14", style: TextStyle(
+            fontSize: 11.sp,
+              color: Colors.white.withValues(alpha: 0.75))),
         ],
       ),
     );
