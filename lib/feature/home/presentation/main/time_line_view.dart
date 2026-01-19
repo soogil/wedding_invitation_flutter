@@ -53,6 +53,7 @@ class TimeLineView extends StatelessWidget {
 
         // 타임라인 리스트
         ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final event = events[index];
@@ -110,7 +111,6 @@ class TimeLineView extends StatelessWidget {
     );
   }
 
-  // 날짜 위젯
   Widget _buildDate(String date, {required bool isLeft}) {
     return Container(
       padding: EdgeInsets.only(
@@ -129,7 +129,6 @@ class TimeLineView extends StatelessWidget {
     );
   }
 
-  // 내용(사진+글) 위젯
   Widget _buildContent(Map<String, String> event, {required bool isLeft}) {
     return Padding(
       padding: EdgeInsets.only(

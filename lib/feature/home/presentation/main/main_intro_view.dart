@@ -208,7 +208,7 @@ class _MainHeroText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("김수길 ♡ 유연정", style: TextStyle(fontSize: 28, height: 1.1)),
+          const Text("김수길 ❤️ 유연정", style: TextStyle(fontSize: 28, height: 1.1)),
           const SizedBox(height: 8),
           Text("We Are Getting Married", style: TextStyle(fontSize: 18, color: Colors.white.withValues(alpha: 0.9))),
           const SizedBox(height: 10),

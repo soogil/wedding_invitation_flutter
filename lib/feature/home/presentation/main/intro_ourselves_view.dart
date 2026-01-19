@@ -45,12 +45,12 @@ class IntroOurselvesView extends StatelessWidget {
             _introCard(
               imagePath: 'assets/parent_kim.png',
               label: '신랑 김수길의 부모님',
-              parentNames: '김윤규 & 박인숙',
+              parentNames: '김윤규 ♡ 박인숙',
             ),
             _introCard(
               imagePath: 'assets/parent_you.png',
               label: '신부 유연정의 부모님',
-              parentNames: '유용청 & 전미용',
+              parentNames: '유용청 ♡ 전미용',
             ),
           ],
         )
