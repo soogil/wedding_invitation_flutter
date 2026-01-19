@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 
@@ -42,11 +43,10 @@ class TimeLineView extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 40),
           child: Center(
             child: Text(
-              "Our Love Story",
-              style: TextStyle(
-                fontFamily: 'GreatVibes', // 아까 추천해드린 폰트
-                fontSize: 40,
-              ),
+              "연애 타임라인",
+              style: GoogleFonts.notoSans(
+                fontSize: 40
+              )
             ),
           ),
         ),

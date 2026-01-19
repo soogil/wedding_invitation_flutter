@@ -41,6 +41,10 @@ flutter:
     - assets/hero.png
     - assets/hero1.jpg
     - assets/hero2.jpg
+    - assets/parent_kim.png
+    - assets/parent_you.png
+    - assets/kim.jpg
+    - assets/you.jpg
   # To add assets to your application, add an assets section, like this:
 
   # An image asset can refer to one or more resolution-specific "variants", see
