@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:wedding/feature/home/presentation/main/gallery_view.dart';
 import 'package:wedding/feature/home/presentation/main/intro_ourselves_view.dart';
 import 'package:wedding/feature/home/presentation/main/main_intro_view.dart';
 import 'package:wedding/feature/home/presentation/main/time_line_view.dart';
@@ -44,6 +45,8 @@ class WeddingAnnouncementPage extends StatelessWidget {
           TimeLineView(),
           SizedBox(height: 150),
           IntroOurselvesView(),
+          SizedBox(height: 150),
+          GalleryView(),
           SizedBox(height: 800),
         ]
     );
