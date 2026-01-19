@@ -1,7 +1,7 @@
 ﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:wedding/feature/home/presentation/login/wedding_announcement_page.dart';
+import 'package:wedding/feature/home/presentation/main/wedding_announcement_page.dart';
 
 part 'app_router.g.dart';
 

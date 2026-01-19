@@ -25,7 +25,7 @@ class AuthDatasourceImpl implements AuthDataSource {
     required String password,
   }) async {
     final response = await _dio.post(
-      '/home/login',
+      '/home/main',
       data: {
         'email': email,
         'password': password,
