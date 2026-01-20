@@ -39,15 +39,12 @@ class TimeLineView extends StatelessWidget {
 
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 40),
-          child: Center(
-            child: Text(
-              "연애 타임라인",
-              style: TextStyle(
-                fontSize: 40.sp
-              )
-            ),
+        Center(
+          child: Text(
+            "연애 타임라인",
+            style: TextStyle(
+              fontSize: 40.sp
+            )
           ),
         ),
 

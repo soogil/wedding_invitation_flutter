@@ -168,7 +168,7 @@ class _GuestBookPageState extends State<GuestBookPage> {
                 children: [
                   Text(
                     data['message'],
-                    style: const TextStyle(height: 1.4, fontSize: 14),
+                    style: TextStyle(height: 1.4, fontSize: 14.sp),
                   ),
                   SizedBox(height: 10.w),
                   Align(

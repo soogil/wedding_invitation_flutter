@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
-              fontFamily: 'NotoSans'
+              fontFamily: 'Bareun'
             ),
             builder: (context, child) {
               final double actualWidth = MediaQuery.of(context).size.width;

@@ -52,13 +52,14 @@ class GalleryView extends StatelessWidget {
             fontSize: 40.sp,
           ),
         ),
-        const SizedBox(height: 15,),
+        SizedBox(height: 15.h),
         Padding(
             padding: EdgeInsets.only(left: 15.w, right: 15.w),
             child: Divider(height: 1,)
         ),
-        SizedBox(height: 45.w),
+        SizedBox(height: 15.h),
         GridView.builder(
+          padding: EdgeInsets.all(0),
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

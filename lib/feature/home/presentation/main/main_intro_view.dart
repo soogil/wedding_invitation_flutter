@@ -204,24 +204,21 @@ class _MainHeroText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTextStyle(
-      style: const TextStyle(color: Colors.white),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("김수길 ❤️ 유연정", style: TextStyle(fontSize: 28.sp, height: 1.1)),
-          SizedBox(height: 8.h),
-          Text("We Are Getting Married", style: TextStyle(fontSize: 18.sp, color: Colors.white.withValues(alpha: 0.9))),
-          SizedBox(height: 10.h),
-          Container(height: 1,
-              width: 140.w,
-              color: Colors.white.withValues(alpha: 0.45)),
-          SizedBox(height: 10.h),
-          Text("2026. 06. 14", style: TextStyle(
-            fontSize: 11.sp,
-              color: Colors.white.withValues(alpha: 0.75))),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("김수길 ❤️ 유연정", style: TextStyle(fontSize: 28.sp, height: 1.1, color: Colors.white)),
+        SizedBox(height: 8.h),
+        Text("We Are Getting Married", style: TextStyle(fontSize: 18.sp, color: Colors.white.withValues(alpha: 0.9))),
+        SizedBox(height: 10.h),
+        Container(height: 1,
+            width: 140.w,
+            color: Colors.white.withValues(alpha: 0.45)),
+        SizedBox(height: 10.h),
+        Text("2026. 06. 14", style: TextStyle(
+          fontSize: 11.sp,
+            color: Colors.white.withValues(alpha: 0.75))),
+      ],
     );
   }
 }

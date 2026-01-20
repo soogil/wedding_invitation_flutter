@@ -58,6 +58,15 @@ flutter:
       fonts:
         - asset: assets/fonts/indieFlower/IndieFlower-Regular.ttf
           weight: 400
+    - family: Gamja
+      fonts:
+        - asset: assets/fonts/gamja/GamjaFlower-Regular.ttf
+          weight: 400
+    - family: Bareun
+      fonts:
+        - asset: assets/fonts/bareun/BareunBatangM.ttf
+          weight: 400
+
   # To add assets to your application, add an assets section, like this:
 
   # An image asset can refer to one or more resolution-specific "variants", see
