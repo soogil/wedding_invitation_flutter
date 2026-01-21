@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
-            title: 'Flutter Demo',
+            title: '김수길 ❤️ 유연정의 결혼 알림장',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
