@@ -2,9 +2,14 @@
 import 'package:wedding/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wedding/core/util/bgm_player.dart';
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await AudioManager().init();
+
   runApp(ProviderScope(child: const MyApp()));
 }
 

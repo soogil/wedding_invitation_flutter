@@ -8,7 +8,6 @@ import 'package:wedding/feature/home/presentation/main/main_intro_view.dart';
 import 'package:wedding/feature/home/presentation/main/time_line_view.dart';
 
 
-
 class WeddingAnnouncementPage extends StatelessWidget {
   const WeddingAnnouncementPage({super.key});
 
