@@ -17,11 +17,9 @@ class _MainIntroViewState extends State<MainIntroView>
     with SingleTickerProviderStateMixin {
   final AudioManager _audioManager = AudioManager();
   late final AnimationController _c;
-  late final Animation<double> _introOpacity;
-  late final Animation<double> _mainOpacity;
   late final Animation<double> _introScale;
-  late final Animation<double> _introBlur;       // 블러 애니메이션
-  late final Animation<double> _textIntroOpacity; // 텍스트 등장 애니메이션 (새로 추가)
+  late final Animation<double> _introBlur;
+  late final Animation<double> _textIntroOpacity;
 
   bool _showIntro = true;
   bool _isEntering = false;
@@ -37,14 +35,6 @@ class _MainIntroViewState extends State<MainIntroView>
       vsync: this,
       duration: const Duration(milliseconds: 3000), // 블러 효과를 즐기기 위해 시간을 조금 늘림 (2.5초 -> 3초)
     );
-
-    // 1. 인트로 전체 투명도 (입장 시작되면 사라짐)
-    _introOpacity = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
-        parent: _c, curve: const Interval(0.0, 0.8, curve: Curves.easeOut)));
-
-    // 2. 메인 화면 투명도
-    _mainOpacity = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-        parent: _c, curve: const Interval(0.4, 1.0, curve: Curves.easeOut)));
 
     // 3. 배경 이미지 확대 효과
     _introScale = Tween<double>(begin: 1.05, end: 1.0).animate(CurvedAnimation(
@@ -103,7 +93,6 @@ class _MainIntroViewState extends State<MainIntroView>
       backgroundColor: Colors.grey[200],
       body: Stack(
         children: [
-          // ✅ 1. 메인 스크롤뷰 (뒤에 숨어있음)
           CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -287,7 +276,7 @@ class _MainHeroText extends StatelessWidget {
         SizedBox(height: 10.h),
         Text("2026. 06. 14",
             style: TextStyle(
-                fontSize: 11.sp,
+                fontSize: 13.sp,
                 color: Colors.white.withValues(alpha: 0.75))),
       ],
     );

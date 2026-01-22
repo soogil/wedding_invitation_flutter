@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -73,44 +74,12 @@ class GalleryView extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        // 닫기 버튼을 위한 앱바 (선택사항)
-                        appBar: AppBar(
-                          backgroundColor: Colors.black,
-                          leading: IconButton(
-                            icon: const Icon(Icons.close, color: Colors.white),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ),
-                        body: Container(
-                          color: Colors.black, // 배경 검은색
-                          child: PhotoViewGallery.builder(
-                            scrollPhysics: const BouncingScrollPhysics(),
-                            builder: (BuildContext context, int index) {
-                              return PhotoViewGalleryPageOptions(
-                                // ✅ 핵심: 여기서 AssetImage라고 명시해줘야 합니다!
-                                imageProvider: AssetImage(imageUrls[index]),
-
-                                // 만약 나중에 인터넷 이미지라면 NetworkImage(imageUrls[index]) 쓰면 됨
-                                initialScale: PhotoViewComputedScale.contained,
-                                minScale: PhotoViewComputedScale.contained,
-                                maxScale: PhotoViewComputedScale.covered * 2,
-                                heroAttributes: PhotoViewHeroAttributes(tag: '${imageUrls[index]}_$index'),
-                              );
-                            },
-                            itemCount: imageUrls.length,
-                            loadingBuilder: (context, event) => const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                            // 처음에 몇 번째 사진부터 보여줄지 설정
-                            pageController: PageController(initialPage: index),
-                          ),
-                        ),
-                      ),
-                    ),
+                  context.push(
+                    Uri(
+                      path: '/gallery',
+                      queryParameters: {'index': index.toString()},
+                    ).toString(),
+                    extra: imageUrls,
                   );
                 },
                 child: Hero(
@@ -127,6 +96,50 @@ class GalleryView extends StatelessWidget {
             }
         ),
       ],
+    );
+  }
+}
+
+class GalleryPhotoView extends StatelessWidget {
+  final List<String> imageUrls;
+  final int initialIndex;
+
+  const GalleryPhotoView({
+    super.key,
+    required this.imageUrls,
+    required this.initialIndex,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          icon: const Icon(Icons.close, color: Colors.white),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: Container(
+        color: Colors.black,
+        child: PhotoViewGallery.builder(
+          scrollPhysics: const BouncingScrollPhysics(),
+          itemCount: imageUrls.length,
+          builder: (BuildContext context, int index) {
+            return PhotoViewGalleryPageOptions(
+              imageProvider: AssetImage(imageUrls[index]),
+              initialScale: PhotoViewComputedScale.contained,
+              minScale: PhotoViewComputedScale.contained,
+              maxScale: PhotoViewComputedScale.covered * 2,
+              heroAttributes: PhotoViewHeroAttributes(tag: imageUrls[index]),
+            );
+          },
+          loadingBuilder: (context, event) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          pageController: PageController(initialPage: initialIndex),
+        ),
+      ),
     );
   }
 }

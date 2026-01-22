@@ -1,13 +1,17 @@
 enum AppPage {
-  weddingAnnounce;
+  weddingAnnounce,
+  photo,
+  gallery;
   //...;
 
   String get path {
     switch (this) {
       case AppPage.weddingAnnounce:
         return '/weddingAnnounce';
-      // case AppPage.settings:
-      //   return '/settings';
+      case AppPage.photo:
+        return '/photo';
+      case AppPage.gallery:
+        return '/gallery';
     }
   }
 
