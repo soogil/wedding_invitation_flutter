@@ -2,9 +2,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wedding/core/router/app_pages.dart';
-import 'package:wedding/feature/home/presentation/main/gallery_view.dart';
-import 'package:wedding/feature/home/presentation/main/intro_ourselves_view.dart';
-import 'package:wedding/feature/home/presentation/main/wedding_announcement_page.dart';
+import 'package:wedding/feature/home/presentation/wedding/gallery_view.dart';
+import 'package:wedding/feature/home/presentation/wedding/intro_ourselves_view.dart';
+import 'package:wedding/feature/home/presentation/wedding/wedding_announcement_page.dart';
 
 part 'app_router.g.dart';
 
@@ -24,11 +24,7 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) {
           final imagePath = state.uri.queryParameters['path'] ?? '';
           final heroTag = state.uri.queryParameters['tag'] ?? '';
-
-          return SinglePhotoView(
-              imagePath: imagePath,
-              heroTag: heroTag
-          );
+          return SinglePhotoView(imagePath: imagePath, heroTag: heroTag);
         },
       ),
       GoRoute(
@@ -37,20 +33,10 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) {
           final indexStr = state.uri.queryParameters['index'] ?? '0';
           final index = int.parse(indexStr);
-
           final images = state.extra as List<String>;
-
-          return GalleryPhotoView(
-              imageUrls: images,
-              initialIndex: index
-          );
+          return GalleryPhotoView(imageUrls: images, initialIndex: index);
         },
       ),
-      // GoRoute(
-      //   path: '/home',
-      //   name: 'home',
-      //   builder: (context, state) => const HomePage(),
-      // ),
     ],
   );
 }

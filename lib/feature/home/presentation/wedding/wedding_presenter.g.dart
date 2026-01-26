@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_datasource.dart';
+part of 'wedding_presenter.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authDataSourceHash() => r'dca1bb0b68c62e506064316da828346b47410283';
+String _$weddingPresenterHash() => r'f047f63348d973f7c196592f8b51910c8fe6ac8b';
 
-/// See also [authDataSource].
-@ProviderFor(authDataSource)
-final authDataSourceProvider = AutoDisposeProvider<AuthDataSource>.internal(
-  authDataSource,
-  name: r'authDataSourceProvider',
+/// See also [WeddingPresenter].
+@ProviderFor(WeddingPresenter)
+final weddingPresenterProvider =
+    AutoDisposeNotifierProvider<WeddingPresenter, WeddingState>.internal(
+  WeddingPresenter.new,
+  name: r'weddingPresenterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authDataSourceHash,
+      : _$weddingPresenterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AuthDataSourceRef = AutoDisposeProviderRef<AuthDataSource>;
+typedef _$WeddingPresenter = AutoDisposeNotifier<WeddingState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

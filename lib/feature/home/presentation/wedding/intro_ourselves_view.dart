@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:wedding/core/router/app_pages.dart'; // photo_view 패키지 필요
+import 'package:wedding/core/router/app_pages.dart';
 
 class IntroOurselvesView extends StatelessWidget {
   const IntroOurselvesView({super.key});
@@ -12,7 +12,7 @@ class IntroOurselvesView extends StatelessWidget {
     return Column(
       children: [
         _introParents(context),
-        SizedBox(height: 150.h),
+        SizedBox(height: 120.h),
         _introOurselves(context),
       ],
     );
@@ -23,22 +23,18 @@ class IntroOurselvesView extends StatelessWidget {
       children: [
         Text(
           "부모님 소개",
-          style: TextStyle(
-            fontSize: 40.sp,
-          ),
+          style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
         ),
         SizedBox(height: 15.h),
         Padding(
-            padding: EdgeInsets.only(left: 15, right: 15),
-            child: Divider(height: 1)),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          child: const Divider(height: 1),
+        ),
         SizedBox(height: 15.h),
         Text(
-          "저희의 시작을 사랑으로 응원해주신\n"
-              "양가 부모님을 소개합니다.",
+          "저희의 시작을 사랑으로 응원해주신\n양가 부모님을 소개합니다.",
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.sp,
-          ),
+          style: TextStyle(fontSize: 16.sp),
         ),
         SizedBox(height: 30.h),
         Row(
@@ -51,7 +47,7 @@ class IntroOurselvesView extends StatelessWidget {
                 name: '김윤규 ♡ 박인숙',
               ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 10.w),
             Expanded(
               child: _introCard(
                 context,
@@ -71,15 +67,14 @@ class IntroOurselvesView extends StatelessWidget {
       children: [
         Text(
           "신랑 신부 소개",
-          style: TextStyle(
-            fontSize: 40.sp,
-          ),
+          style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
         ),
         SizedBox(height: 15.h),
         Padding(
-            padding: EdgeInsets.only(left: 15.w, right: 15.w),
-            child: Divider(height: 1)),
-        SizedBox(height: 45.h),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          child: const Divider(height: 1),
+        ),
+        SizedBox(height: 36.h),
         Row(
           children: [
             Expanded(
@@ -90,7 +85,7 @@ class IntroOurselvesView extends StatelessWidget {
                 name: '신랑 김수길',
               ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 10.w),
             Expanded(
               child: _introCard(
                 context,
@@ -106,11 +101,11 @@ class IntroOurselvesView extends StatelessWidget {
   }
 
   Widget _introCard(
-      BuildContext context, {
-        required String imagePath,
-        required String label,
-        required String name,
-      }) {
+    BuildContext context, {
+    required String imagePath,
+    required String label,
+    required String name,
+  }) {
     final String heroTag = imagePath;
 
     return Column(
@@ -131,8 +126,8 @@ class IntroOurselvesView extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               child: Image.asset(
                 imagePath,
-                width: 180,
-                height: 250,
+                width: 180.w,
+                height: 250.h,
                 fit: BoxFit.cover,
               ),
             ),
@@ -141,17 +136,12 @@ class IntroOurselvesView extends StatelessWidget {
         SizedBox(height: 15.h),
         Text(
           label,
-          style: TextStyle(
-            fontSize: 15.sp,
-          ),
+          style: TextStyle(fontSize: 13.sp),
         ),
         SizedBox(height: 5.h),
         Text(
           name,
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
         )
       ],
     );
@@ -162,7 +152,8 @@ class SinglePhotoView extends StatelessWidget {
   final String imagePath;
   final String heroTag;
 
-  const SinglePhotoView({super.key,
+  const SinglePhotoView({
+    super.key,
     required this.imagePath,
     required this.heroTag,
   });

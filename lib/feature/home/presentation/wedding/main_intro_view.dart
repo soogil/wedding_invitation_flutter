@@ -33,22 +33,18 @@ class _MainIntroViewState extends State<MainIntroView>
 
     _c = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000), // 블러 효과를 즐기기 위해 시간을 조금 늘림 (2.5초 -> 3초)
+      duration: const Duration(milliseconds: 3000),
     );
 
-    // 3. 배경 이미지 확대 효과
     _introScale = Tween<double>(begin: 1.05, end: 1.0).animate(CurvedAnimation(
         parent: _c, curve: const Interval(0.0, 1.0, curve: Curves.easeOut)));
 
-    // ✅ 4. 블러 효과 (처음엔 10.0으로 흐리게 -> 0.0으로 선명하게)
-    // 0.0 ~ 0.6 구간 동안 진행됩니다. (약 1.8초 동안 선명해짐)
     _introBlur = Tween<double>(begin: 10.0, end: 0.0).animate(CurvedAnimation(
         parent: _c, curve: const Interval(0.0, 0.6, curve: Curves.easeOut)));
 
-    // ✅ 5. 텍스트 등장 (블러가 거의 끝날 때쯤 나타남)
-    // 0.6 ~ 1.0 구간 동안 나타납니다.
-    _textIntroOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _c, curve: const Interval(0.6, 1.0, curve: Curves.easeIn)));
+    _textIntroOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+            parent: _c, curve: const Interval(0.6, 1.0, curve: Curves.easeIn)));
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
@@ -56,7 +52,6 @@ class _MainIntroViewState extends State<MainIntroView>
       } catch (e) {
         debugPrint("$e");
       }
-      // 인트로 애니메이션 자동 시작
       if (mounted) _c.forward();
     });
   }
@@ -69,21 +64,13 @@ class _MainIntroViewState extends State<MainIntroView>
 
   void _enter() {
     if (_c.value < 0.6) return;
-
     if (_isEntering) return;
 
-    setState(() {
-      _isEntering = true;
-    });
-
+    setState(() => _isEntering = true);
     _audioManager.toggleMusic();
 
     Future.delayed(const Duration(milliseconds: 600), () {
-      if (mounted) {
-        setState(() {
-          _showIntro = false;
-        });
-      }
+      if (mounted) setState(() => _showIntro = false);
     });
   }
 
@@ -97,19 +84,29 @@ class _MainIntroViewState extends State<MainIntroView>
             slivers: [
               SliverToBoxAdapter(
                 child: _ResponsiveWrapper(
-                  child: AspectRatio(
-                    aspectRatio: 9 / 16,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image(image: heroImage1, fit: BoxFit.contain),
-                        Container(color: Colors.black.withValues(alpha: 0.18)),
-                        Positioned(
-                          left: 20, right: 20, bottom: 24,
-                          child: _MainHeroText(),
+                  child: Stack(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 9 / 16,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image(
+                              image: heroImage1,
+                              fit: BoxFit.contain,
+                            ),
+                            Container(color: Colors.black.withValues(alpha: 0.18)),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Positioned.fill(
+                          bottom: 20,
+                          left: 20,
+                          right: 20,
+                          child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: _MainHeroText())),
+                    ],
                   ),
                 ),
               ),
@@ -125,7 +122,6 @@ class _MainIntroViewState extends State<MainIntroView>
               ),
             ],
           ),
-
           if (_showIntro)
             Positioned.fill(
               child: GestureDetector(
@@ -145,9 +141,7 @@ class _MainIntroViewState extends State<MainIntroView>
                               scale: _introScale.value,
                               child: Image(image: heroImage2, fit: BoxFit.cover),
                             ),
-
                             Container(color: Colors.black.withValues(alpha: 0.3)),
-
                             if (_introBlur.value > 0.01)
                               BackdropFilter(
                                 filter: ImageFilter.blur(
@@ -157,37 +151,36 @@ class _MainIntroViewState extends State<MainIntroView>
                                 child: Container(color: Colors.transparent),
                               ),
                             Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: 150.h,
-                                child: _IntroTitle()
-                            ),
-                            Positioned(
                               bottom: 50.h,
                               left: 0,
                               right: 0,
-                              child: Center(
-                                child: Opacity(
-                                  opacity: _textIntroOpacity.value, // 블러가 끝나갈 때쯤 0 -> 1
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        '화면을 터치하여 입장하기',
-                                        style: TextStyle(
-                                          color: Colors.white.withValues(alpha: 0.9),
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                              child: Column(
+                                children: [
+                                  _IntroTitle(),
+                                  Center(
+                                    child: Opacity(
+                                      opacity: _textIntroOpacity.value,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            '화면을 터치하여 입장하기',
+                                            style: TextStyle(
+                                              color: Colors.white.withValues(alpha: 0.9),
+                                              fontSize: 14.sp,
+                                              // fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8.h),
+                                          Icon(
+                                            Icons.touch_app,
+                                            color: Colors.white.withValues(alpha: 0.7),
+                                            size: 24,
+                                          )
+                                        ],
                                       ),
-                                      SizedBox(height: 8.h),
-                                      Icon(
-                                        Icons.touch_app,
-                                        color: Colors.white.withValues(alpha: 0.7),
-                                        size: 20.sp,
-                                      )
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             )
                           ],
@@ -227,6 +220,8 @@ class _ResponsiveWrapper extends StatelessWidget {
 }
 
 class _IntroTitle extends StatelessWidget {
+  const _IntroTitle();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
@@ -241,7 +236,7 @@ class _IntroTitle extends StatelessWidget {
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontFamily: 'IndieFlower',
-                fontSize: 50.sp,
+                fontSize: 24.sp,
                 height: 1.2,
               ),
             ),
@@ -259,25 +254,31 @@ class _MainHeroText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("김수길 ❤️ 유연정",
-            style: TextStyle(
-                fontSize: 28.sp, height: 1.1, color: Colors.white)),
+        Text(
+          "김수길 ❤️ 유연정",
+          style: TextStyle(fontSize: 26.sp, height: 1.1, color: Colors.white),
+        ),
         SizedBox(height: 8.h),
-        Text("We Are Getting Married",
-            style: TextStyle(
-                fontSize: 18.sp, color: Colors.white.withValues(alpha: 0.9))),
+        Text(
+          "We Are Getting Married",
+          style: TextStyle(
+              fontSize: 16.sp, color: Colors.white.withValues(alpha: 0.9)),
+        ),
         SizedBox(height: 10.h),
         Container(
-            height: 1,
-            width: 140.w,
-            color: Colors.white.withValues(alpha: 0.45)),
+          height: 1,
+          width: 140.w,
+          color: Colors.white.withValues(alpha: 0.45),
+        ),
         SizedBox(height: 10.h),
-        Text("2026. 06. 14",
-            style: TextStyle(
-                fontSize: 13.sp,
-                color: Colors.white.withValues(alpha: 0.75))),
+        Text(
+          "2026. 06. 14",
+          style: TextStyle(
+              fontSize: 13.sp, color: Colors.white.withValues(alpha: 0.75)),
+        ),
       ],
     );
   }

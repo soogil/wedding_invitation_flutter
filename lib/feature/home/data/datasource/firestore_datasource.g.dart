@@ -1,26 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_usecase.dart';
+part of 'firestore_datasource.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginUseCaseHash() => r'8331b2822e94a6be9130a687200fab1799794d55';
+String _$firestoreDataSourceHash() =>
+    r'48fb0b5c1ee4800268c47bbb85516117d8d3c920';
 
-/// See also [loginUseCase].
-@ProviderFor(loginUseCase)
-final loginUseCaseProvider = AutoDisposeProvider<LoginUseCase>.internal(
-  loginUseCase,
-  name: r'loginUseCaseProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$loginUseCaseHash,
+/// See also [firestoreDataSource].
+@ProviderFor(firestoreDataSource)
+final firestoreDataSourceProvider =
+    AutoDisposeProvider<FirestoreDataSource>.internal(
+  firestoreDataSource,
+  name: r'firestoreDataSourceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firestoreDataSourceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef LoginUseCaseRef = AutoDisposeProviderRef<LoginUseCase>;
+typedef FirestoreDataSourceRef = AutoDisposeProviderRef<FirestoreDataSource>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

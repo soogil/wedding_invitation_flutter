@@ -1,12 +1,18 @@
-﻿import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wedding/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wedding/core/util/bgm_player.dart';
+import 'package:wedding/firebase_options.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await AudioManager().init();
 
@@ -25,41 +31,31 @@ class MyApp extends ConsumerWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
-            title: '김수길 ❤️ 유연정의 결혼 알림장',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-              fontFamily: 'Bareun'
-            ),
-            builder: (context, child) {
-              final double actualWidth = MediaQuery.of(context).size.width;
+          title: '김수길 ❤️ 유연정의 결혼 알림장',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+            fontFamily: 'Bareun',
+          ),
 
-              // PC 웹에서 화면을 늘려도 480px일 때의 글자 크기로 고정됩니다.
-              final double scale = actualWidth > 480
-                  ? (480 / actualWidth)
-                  : 1.0;
+          builder: (context, child) {
+            final double actualWidth = MediaQuery.of(context).size.width;
 
-              // 계산된 비율을 전체 앱에 적용
-              return MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaler: TextScaler.linear(scale),
-                ),
-                child: child!,
-              );
-            },
-            routerConfig: router,
-          );
+            final double textScaleFactor = actualWidth > 480
+                ? (480 / actualWidth)
+                : 1.0;
+
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: TextScaler.linear(textScaleFactor),
+              ),
+              child: child!,
+            );
+          },
+          routerConfig: router,
+        );
       },
     );
-    // return MaterialApp.router(
-    //   title: 'Flutter Demo',
-    //   debugShowCheckedModeBanner: false,
-    //   theme: ThemeData(
-    //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-    //     useMaterial3: true,
-    //   ),
-    //   routerConfig: router,
-    // );
   }
 }

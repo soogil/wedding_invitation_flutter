@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "646245280460",
+    "project_id": "wedding-invitation-flutter",
+    "storage_bucket": "wedding-invitation-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646245280460:android:7f2eed9a9949218d91b069",
+        "android_client_info": {
+          "package_name": "com.soogil.boilerplate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlXnKwBPDPiBBEx5COXMxE_IDHjRqShnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

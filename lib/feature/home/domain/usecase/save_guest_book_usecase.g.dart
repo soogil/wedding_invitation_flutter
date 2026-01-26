@@ -1,27 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_repository_impl.dart';
+part of 'save_guest_book_usecase.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authRepositoryHash() => r'7de46248be547506b6cb1f445cf88abaad170275';
+String _$saveGuestBookUseCaseHash() =>
+    r'6f8c7c343895dbdad19799a21296092f968a02f5';
 
-/// See also [authRepository].
-@ProviderFor(authRepository)
-final authRepositoryProvider = AutoDisposeProvider<AuthRepository>.internal(
-  authRepository,
-  name: r'authRepositoryProvider',
+/// See also [saveGuestBookUseCase].
+@ProviderFor(saveGuestBookUseCase)
+final saveGuestBookUseCaseProvider =
+    AutoDisposeProvider<SaveGuestBookUseCase>.internal(
+  saveGuestBookUseCase,
+  name: r'saveGuestBookUseCaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authRepositoryHash,
+      : _$saveGuestBookUseCaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef AuthRepositoryRef = AutoDisposeProviderRef<AuthRepository>;
+typedef SaveGuestBookUseCaseRef = AutoDisposeProviderRef<SaveGuestBookUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
