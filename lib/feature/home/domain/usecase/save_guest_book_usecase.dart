@@ -27,11 +27,13 @@ class SaveGuestBookUseCase {
     }
 
     final guestBook = GuestBook(
-      id: '', // Firestore에서 자동 생성
+      id: weddingId,
       name: name.trim(),
       message: message.trim(),
       createdAt: DateTime.now(),
     );
+
+    print(guestBook.toString());
 
     await _repository.saveGuestBook(weddingId, guestBook);
   }

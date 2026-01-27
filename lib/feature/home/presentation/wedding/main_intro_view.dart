@@ -53,7 +53,6 @@ class _MainIntroViewState extends State<MainIntroView>
         debugPrint("Failed to precache heroImage1: $e");
       });
 
-      // 애니메이션 즉시 시작
       if (mounted) _c.forward();
     });
   }
@@ -161,6 +160,7 @@ class _MainIntroViewState extends State<MainIntroView>
                               child: Column(
                                 children: [
                                   _IntroTitle(),
+                                  SizedBox(height: 8.h),
                                   Center(
                                     child: Opacity(
                                       opacity: _textIntroOpacity.value,
@@ -170,7 +170,7 @@ class _MainIntroViewState extends State<MainIntroView>
                                             '화면을 터치하여 입장하기',
                                             style: TextStyle(
                                               color: Colors.white.withValues(alpha: 0.9),
-                                              fontSize: 14.sp,
+                                              fontSize: 18.sp,
                                               // fontWeight: FontWeight.w300,
                                             ),
                                           ),
@@ -178,7 +178,7 @@ class _MainIntroViewState extends State<MainIntroView>
                                           Icon(
                                             Icons.touch_app,
                                             color: Colors.white.withValues(alpha: 0.7),
-                                            size: 24,
+                                            size: 32,
                                           )
                                         ],
                                       ),
@@ -240,7 +240,7 @@ class _IntroTitle extends StatelessWidget {
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontFamily: 'IndieFlower',
-                fontSize: 24.sp,
+                fontSize: 48.sp,
                 height: 1.2,
               ),
             ),

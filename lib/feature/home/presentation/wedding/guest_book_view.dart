@@ -25,10 +25,17 @@ class _GuestBookViewState extends ConsumerState<GuestBookView> {
   final TextEditingController _msgController = TextEditingController();
 
   final List<Color> _postItColors = [
-    const Color(0xFFFFF8C4), // 연노랑
-    const Color(0xFFE2F0CB), // 연두
-    const Color(0xFFFFE0E0), // 연분홍
-    const Color(0xFFE0F7FA), // 하늘
+    const Color(0xFFFFF8C4), // 연노랑 (기존)
+    const Color(0xFFE2F0CB), // 연두 (기존)
+    const Color(0xFFFFE0E0), // 연분홍 (기존)
+    const Color(0xFFE0F7FA), // 하늘 (기존)
+
+    // --- 추가 추천 컬러 ---
+    const Color(0xFFFFF0F5), // 코튼 캔디
+    const Color(0xFFFFF9E5), // 바닐라 크림
+    const Color(0xFFE8F5E9), // 세이지 그린
+    const Color(0xFFE3F2FD), // 미스티 블루
+    const Color(0xFFFDF5E6), // 샌드 베이지
   ];
 
   @override
@@ -194,7 +201,6 @@ class _GuestBookViewState extends ConsumerState<GuestBookView> {
             itemBuilder: (context, index) {
               final guestBook = guestBooks[index];
               final colorIndex = guestBook.id.hashCode % _postItColors.length;
-              // 각 행의 시작 인덱스를 기준으로 stagger 계산 (한 행에 2개씩)
               final int row = index ~/ 2;
               final int col = index % 2;
               final int staggerDelay = 150 + (row * 100) + (col * 75);

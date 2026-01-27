@@ -53,7 +53,7 @@ class WeddingPresenter extends _$WeddingPresenter {
     state = currentState.copyWith(isSubmittingGuestBook: true);
 
     try {
-      final saveGuestBookUseCase = ref.read(saveGuestBookUseCaseProvider);
+      final SaveGuestBookUseCase saveGuestBookUseCase = ref.read(saveGuestBookUseCaseProvider);
       await saveGuestBookUseCase(
         weddingId: weddingId,
         name: name,
@@ -69,7 +69,7 @@ class WeddingPresenter extends _$WeddingPresenter {
       if (newState is WeddingLoaded) {
         state = newState.copyWith(isSubmittingGuestBook: false);
       }
-      // 에러를 다시 throw하여 UI에서 처리할 수 있도록 함
+      // 에러를 다시 throw하여 UI에서 처리
       rethrow;
     }
   }
