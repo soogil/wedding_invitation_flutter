@@ -23,7 +23,7 @@ class AudioManager {
 
     try {
       _player = AudioPlayer();
-      await _player!.setAsset('assets/flac/couple.flac');
+      await _player!.setAsset('assets/mp3/couple.mp3');
       await _player!.setLoopMode(LoopMode.all);
       await _player!.setVolume(0.3);
 

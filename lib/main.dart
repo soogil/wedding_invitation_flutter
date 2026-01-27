@@ -10,11 +10,9 @@ import 'package:wedding/firebase_options.dart';
 
 
 void main() async {
-  // 전역 에러 핸들링
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    // Flutter 프레임워크 에러 핸들링
     FlutterError.onError = (details) {
       FlutterError.presentError(details);
       if (kDebugMode) {

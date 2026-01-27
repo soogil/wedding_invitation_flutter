@@ -50,21 +50,15 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _initializeApp() async {
     try {
-      // 오디오 초기화 (백그라운드)
       AudioManager().init().catchError((e) {
         debugPrint('AudioManager init error: $e');
       });
 
-      // 이미지 프리캐시 (백그라운드)
       _precacheCriticalImages();
-
-      // 스플래시 화면 최소 표시 시간 (로딩 인디케이터가 보이도록)
-      await Future.delayed(const Duration(milliseconds: 1500));
     } catch (e) {
       debugPrint('SplashScreen init error: $e');
     }
 
-    // 에러가 발생해도 반드시 메인 화면으로 전환
     if (mounted) {
       try {
         await _fadeController.forward();
@@ -123,11 +117,10 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               SizedBox(height: 8.h),
               Text(
-                'We Are Getting Married',
+                '모바일 알림장',
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: Colors.grey[600],
-                  fontFamily: 'IndieFlower',
                 ),
               ),
               SizedBox(height: 48.h),
