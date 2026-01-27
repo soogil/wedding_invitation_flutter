@@ -46,12 +46,14 @@ class _MainIntroViewState extends State<MainIntroView>
         CurvedAnimation(
             parent: _c, curve: const Interval(0.6, 1.0, curve: Curves.easeIn)));
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        await precacheImage(heroImage1, context);
-      } catch (e) {
-        debugPrint("$e");
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // heroImage2(인트로 배경)는 SplashScreen에서 이미 로드됨
+      // heroImage1은 비동기로 백그라운드에서 로드 (인트로 진입 후 사용)
+      precacheImage(heroImage1, context).catchError((e) {
+        debugPrint("Failed to precache heroImage1: $e");
+      });
+
+      // 애니메이션 즉시 시작
       if (mounted) _c.forward();
     });
   }
@@ -80,8 +82,9 @@ class _MainIntroViewState extends State<MainIntroView>
       backgroundColor: Colors.grey[200],
       body: Stack(
         children: [
-          CustomScrollView(
-            slivers: [
+          ScrollNotificationObserver(
+            child: CustomScrollView(
+              slivers: [
               SliverToBoxAdapter(
                 child: _ResponsiveWrapper(
                   child: Stack(
@@ -121,6 +124,7 @@ class _MainIntroViewState extends State<MainIntroView>
                 ),
               ),
             ],
+            ),
           ),
           if (_showIntro)
             Positioned.fill(

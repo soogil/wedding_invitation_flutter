@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:wedding/feature/home/presentation/widget/scroll_fade_in.dart';
 
 
 class GalleryView extends StatelessWidget {
@@ -47,16 +48,21 @@ class GalleryView extends StatelessWidget {
     // return Container();
     return Column(
       children: [
-        Text(
-          "웨딩 사진",
-          style: TextStyle(
-            fontSize: 40.sp,
+        ScrollFadeIn(
+          child: Text(
+            "웨딩 사진",
+            style: TextStyle(
+              fontSize: 40.sp,
+            ),
           ),
         ),
         SizedBox(height: 15.h),
-        Padding(
-            padding: EdgeInsets.only(left: 15.w, right: 15.w),
-            child: Divider(height: 1,)
+        ScrollFadeIn(
+          delay: const Duration(milliseconds: 100),
+          child: Padding(
+              padding: EdgeInsets.only(left: 15.w, right: 15.w),
+              child: Divider(height: 1,)
+          ),
         ),
         SizedBox(height: 15.h),
         GridView.builder(
@@ -71,24 +77,31 @@ class GalleryView extends StatelessWidget {
             itemCount: imageUrls.length,
             itemBuilder: (context, index) {
               final String heroTag = '${imageUrls[index]}_$index';
+              // 각 행의 시작 인덱스를 기준으로 stagger 계산 (한 행에 3개씩)
+              final int row = index ~/ 3;
+              final int col = index % 3;
+              final int staggerDelay = 200 + (row * 100) + (col * 50);
 
-              return GestureDetector(
-                onTap: () {
-                  context.push(
-                    Uri(
-                      path: '/gallery',
-                      queryParameters: {'index': index.toString()},
-                    ).toString(),
-                    extra: imageUrls,
-                  );
-                },
-                child: Hero(
-                  tag: heroTag,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: Image.asset(
-                      imageUrls[index],
-                      fit: BoxFit.cover,
+              return ScrollFadeIn(
+                delay: Duration(milliseconds: staggerDelay),
+                child: GestureDetector(
+                  onTap: () {
+                    context.push(
+                      Uri(
+                        path: '/gallery',
+                        queryParameters: {'index': index.toString()},
+                      ).toString(),
+                      extra: imageUrls,
+                    );
+                  },
+                  child: Hero(
+                    tag: heroTag,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.r),
+                      child: Image.asset(
+                        imageUrls[index],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

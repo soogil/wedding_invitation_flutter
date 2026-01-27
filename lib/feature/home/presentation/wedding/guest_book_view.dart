@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:wedding/feature/home/domain/entities/guest_book.dart';
 import 'package:wedding/feature/home/presentation/wedding/wedding_presenter.dart';
 import 'package:wedding/feature/home/presentation/wedding/wedding_state.dart';
+import 'package:wedding/feature/home/presentation/widget/scroll_fade_in.dart';
 
 /// 방명록 뷰 (MVP 패턴 적용)
 class GuestBookView extends ConsumerStatefulWidget {
@@ -142,39 +143,44 @@ class _GuestBookViewState extends ConsumerState<GuestBookView> {
     return Column(
       children: [
         // 헤더
-        Stack(
-          children: [
-            Center(
-              child: Text(
-                '방명록',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              bottom: 0,
-              child: TextButton(
-                onPressed: _showWriteDialog,
+        ScrollFadeIn(
+          child: Stack(
+            children: [
+              Center(
                 child: Text(
-                  '글남기기',
-                  style: TextStyle(fontSize: 14.sp, color: Colors.black),
+                  '방명록',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: 0,
+                right: 0,
+                bottom: 0,
+                child: TextButton(
+                  onPressed: _showWriteDialog,
+                  child: Text(
+                    '글남기기',
+                    style: TextStyle(fontSize: 14.sp, color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 32.h),
 
         // 방명록 목록
         if (guestBooks.isEmpty)
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 40.h),
-            child: Text(
-              '아직 작성된 방명록이 없습니다.\n첫 번째 축하 메시지를 남겨주세요!',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16.sp, color: Colors.grey),
+          ScrollFadeIn(
+            delay: const Duration(milliseconds: 150),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.h),
+              child: Text(
+                '아직 작성된 방명록이 없습니다.\n첫 번째 축하 메시지를 남겨주세요!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16.sp, color: Colors.grey),
+              ),
             ),
           )
         else
@@ -188,40 +194,47 @@ class _GuestBookViewState extends ConsumerState<GuestBookView> {
             itemBuilder: (context, index) {
               final guestBook = guestBooks[index];
               final colorIndex = guestBook.id.hashCode % _postItColors.length;
+              // 각 행의 시작 인덱스를 기준으로 stagger 계산 (한 행에 2개씩)
+              final int row = index ~/ 2;
+              final int col = index % 2;
+              final int staggerDelay = 150 + (row * 100) + (col * 75);
 
-              return Container(
-                padding: EdgeInsets.all(16.w),
-                decoration: BoxDecoration(
-                  color: _postItColors[colorIndex],
-                  borderRadius: BorderRadius.circular(12.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 5,
-                      offset: Offset(2, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      guestBook.message,
-                      style: TextStyle(height: 1.4, fontSize: 14.sp),
-                    ),
-                    SizedBox(height: 10.h),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        "- ${guestBook.name} -",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.sp,
-                          color: Colors.black54,
+              return ScrollFadeIn(
+                delay: Duration(milliseconds: staggerDelay),
+                child: Container(
+                  padding: EdgeInsets.all(16.w),
+                  decoration: BoxDecoration(
+                    color: _postItColors[colorIndex],
+                    borderRadius: BorderRadius.circular(12.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 5,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        guestBook.message,
+                        style: TextStyle(height: 1.4, fontSize: 14.sp),
+                      ),
+                      SizedBox(height: 10.h),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          "- ${guestBook.name} -",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.sp,
+                            color: Colors.black54,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },

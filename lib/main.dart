@@ -1,22 +1,42 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wedding/core/router/app_router.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wedding/core/util/bgm_player.dart';
 import 'package:wedding/firebase_options.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // 전역 에러 핸들링
+  await runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+    // Flutter 프레임워크 에러 핸들링
+    FlutterError.onError = (details) {
+      FlutterError.presentError(details);
+      if (kDebugMode) {
+        debugPrint('FlutterError: ${details.exception}');
+      }
+    };
 
-  await AudioManager().init();
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    } catch (e) {
+      debugPrint('Firebase init error: $e');
+    }
 
-  runApp(ProviderScope(child: const MyApp()));
+    runApp(ProviderScope(child: const MyApp()));
+  }, (error, stack) {
+    if (kDebugMode) {
+      debugPrint('Uncaught error: $error');
+      debugPrint('Stack trace: $stack');
+    }
+  });
 }
 
 class MyApp extends ConsumerWidget {

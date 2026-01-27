@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:wedding/feature/home/presentation/widget/scroll_fade_in.dart';
 
 class TimeLineView extends StatelessWidget {
   const TimeLineView({super.key});
@@ -37,16 +38,21 @@ class TimeLineView extends StatelessWidget {
 
     return Column(
       children: [
-        Center(
-          child: Text(
-            "연애 타임라인",
-            style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
+        ScrollFadeIn(
+          child: Center(
+            child: Text(
+              "연애 타임라인",
+              style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
+            ),
           ),
         ),
         SizedBox(height: 15.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: const Divider(height: 1),
+        ScrollFadeIn(
+          delay: const Duration(milliseconds: 100),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: const Divider(height: 1),
+          ),
         ),
         SizedBox(height: 15.h),
         ListView.builder(
@@ -57,46 +63,49 @@ class TimeLineView extends StatelessWidget {
             final event = events[index];
             final isLeft = index % 2 == 0; // 짝수는 왼쪽, 홀수는 오른쪽
 
-            return SizedBox(
-              height: 200.h,
-              child: TimelineTile(
-                alignment: TimelineAlign.center,
-                isFirst: index == 0,
-                isLast: index == events.length - 1,
+            return ScrollFadeIn(
+              delay: Duration(milliseconds: 200 + (index * 150)),
+              child: SizedBox(
+                height: 200.h,
+                child: TimelineTile(
+                  alignment: TimelineAlign.center,
+                  isFirst: index == 0,
+                  isLast: index == events.length - 1,
 
-                beforeLineStyle: const LineStyle(
-                  color: Color(0xFFD4C4B7),
-                  thickness: 2,
-                ),
-
-                indicatorStyle: IndicatorStyle(
-                  width: 28,
-                  height: 28,
-                  indicator: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF6F2EA),
-                      border:
-                          Border.all(color: const Color(0xFFD4C4B7), width: 2),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite,
-                      color: const Color(0xFFFF8A80),
-                      size: 14,
-                    ),
+                  beforeLineStyle: const LineStyle(
+                    color: Color(0xFFD4C4B7),
+                    thickness: 2,
                   ),
-                  drawGap: true,
+
+                  indicatorStyle: IndicatorStyle(
+                    width: 28,
+                    height: 28,
+                    indicator: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF6F2EA),
+                        border:
+                            Border.all(color: const Color(0xFFD4C4B7), width: 2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.favorite,
+                        color: const Color(0xFFFF8A80),
+                        size: 14,
+                      ),
+                    ),
+                    drawGap: true,
+                  ),
+
+                  // 왼쪽 영역 (짝수: 내용 / 홀수: 날짜)
+                  startChild: isLeft
+                      ? _buildContent(event, isLeft: true)
+                      : _buildDate(event['date']!, isLeft: true),
+
+                  // 오른쪽 영역 (짝수: 날짜 / 홀수: 내용)
+                  endChild: isLeft
+                      ? _buildDate(event['date']!, isLeft: false)
+                      : _buildContent(event, isLeft: false),
                 ),
-
-                // 왼쪽 영역 (짝수: 내용 / 홀수: 날짜)
-                startChild: isLeft
-                    ? _buildContent(event, isLeft: true)
-                    : _buildDate(event['date']!, isLeft: true),
-
-                // 오른쪽 영역 (짝수: 날짜 / 홀수: 내용)
-                endChild: isLeft
-                    ? _buildDate(event['date']!, isLeft: false)
-                    : _buildContent(event, isLeft: false),
               ),
             );
           },

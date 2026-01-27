@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:wedding/core/router/app_pages.dart';
+import 'package:wedding/feature/home/presentation/widget/scroll_fade_in.dart';
 
 class IntroOurselvesView extends StatelessWidget {
   const IntroOurselvesView({super.key});
@@ -21,39 +22,53 @@ class IntroOurselvesView extends StatelessWidget {
   Widget _introParents(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "부모님 소개",
-          style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
+        ScrollFadeIn(
+          child: Text(
+            "부모님 소개",
+            style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
+          ),
         ),
         SizedBox(height: 15.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: const Divider(height: 1),
+        ScrollFadeIn(
+          delay: const Duration(milliseconds: 100),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: const Divider(height: 1),
+          ),
         ),
         SizedBox(height: 15.h),
-        Text(
-          "저희의 시작을 사랑으로 응원해주신\n양가 부모님을 소개합니다.",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16.sp),
+        ScrollFadeIn(
+          delay: const Duration(milliseconds: 200),
+          child: Text(
+            "저희의 시작을 사랑으로 응원해주신\n양가 부모님을 소개합니다.",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16.sp),
+          ),
         ),
         SizedBox(height: 30.h),
         Row(
           children: [
             Expanded(
-              child: _introCard(
-                context,
-                imagePath: 'assets/parent_kim.png',
-                label: '신랑 김수길의 부모님',
-                name: '김윤규 ♡ 박인숙',
+              child: ScrollFadeIn(
+                delay: const Duration(milliseconds: 300),
+                child: _introCard(
+                  context,
+                  imagePath: 'assets/parent_kim.png',
+                  label: '신랑 김수길의 부모님',
+                  name: '김윤규 ♡ 박인숙',
+                ),
               ),
             ),
             SizedBox(width: 10.w),
             Expanded(
-              child: _introCard(
-                context,
-                imagePath: 'assets/parent_you.png',
-                label: '신부 유연정의 부모님',
-                name: '유용청 ♡ 전미용',
+              child: ScrollFadeIn(
+                delay: const Duration(milliseconds: 450),
+                child: _introCard(
+                  context,
+                  imagePath: 'assets/parent_you.png',
+                  label: '신부 유연정의 부모님',
+                  name: '유용청 ♡ 전미용',
+                ),
               ),
             ),
           ],
@@ -65,33 +80,44 @@ class IntroOurselvesView extends StatelessWidget {
   Widget _introOurselves(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "신랑 신부 소개",
-          style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
+        ScrollFadeIn(
+          child: Text(
+            "신랑 신부 소개",
+            style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w300),
+          ),
         ),
         SizedBox(height: 15.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: const Divider(height: 1),
+        ScrollFadeIn(
+          delay: const Duration(milliseconds: 100),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: const Divider(height: 1),
+          ),
         ),
         SizedBox(height: 36.h),
         Row(
           children: [
             Expanded(
-              child: _introCard(
-                context,
-                imagePath: 'assets/kim.jpg',
-                label: '',
-                name: '신랑 김수길',
+              child: ScrollFadeIn(
+                delay: const Duration(milliseconds: 200),
+                child: _introCard(
+                  context,
+                  imagePath: 'assets/kim.jpg',
+                  label: '',
+                  name: '신랑 김수길',
+                ),
               ),
             ),
             SizedBox(width: 10.w),
             Expanded(
-              child: _introCard(
-                context,
-                imagePath: 'assets/you.jpg',
-                label: '',
-                name: '신부 유연정',
+              child: ScrollFadeIn(
+                delay: const Duration(milliseconds: 350),
+                child: _introCard(
+                  context,
+                  imagePath: 'assets/you.jpg',
+                  label: '',
+                  name: '신부 유연정',
+                ),
               ),
             ),
           ],
