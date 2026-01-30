@@ -1,18 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'wedding_presenter.dart';
+part of 'wedding_presenter_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$weddingPresenterHash() => r'f047f63348d973f7c196592f8b51910c8fe6ac8b';
+String _$weddingPresenterHash() => r'48ba79ed809e8ff09ce9f857e85559598886772a';
 
-/// See also [WeddingPresenter].
-@ProviderFor(WeddingPresenter)
-final weddingPresenterProvider =
-    AutoDisposeNotifierProvider<WeddingPresenter, WeddingState>.internal(
-  WeddingPresenter.new,
+/// See also [weddingPresenter].
+@ProviderFor(weddingPresenter)
+final weddingPresenterProvider = AutoDisposeProvider<WeddingPresenter>.internal(
+  weddingPresenter,
   name: r'weddingPresenterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
@@ -21,6 +20,8 @@ final weddingPresenterProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$WeddingPresenter = AutoDisposeNotifier<WeddingState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef WeddingPresenterRef = AutoDisposeProviderRef<WeddingPresenter>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

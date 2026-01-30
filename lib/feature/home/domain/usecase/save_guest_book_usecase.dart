@@ -27,13 +27,11 @@ class SaveGuestBookUseCase {
     }
 
     final guestBook = GuestBook(
-      id: weddingId,
+      id: '',
       name: name.trim(),
       message: message.trim(),
       createdAt: DateTime.now(),
     );
-
-    print(guestBook.toString());
 
     await _repository.saveGuestBook(weddingId, guestBook);
   }

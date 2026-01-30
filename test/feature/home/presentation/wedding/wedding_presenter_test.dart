@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wedding/feature/home/data/repositories/wedding_repository_impl.dart';
 import 'package:wedding/feature/home/domain/entities/guest_book.dart';
 import 'package:wedding/feature/home/domain/repositories/wedding_repository.dart';
 import 'package:wedding/feature/home/domain/usecase/save_guest_book_usecase.dart';
-import 'package:wedding/feature/home/presentation/wedding/wedding_presenter.dart';
-import 'package:wedding/feature/home/presentation/wedding/wedding_state.dart';
+import 'package:wedding/feature/home/presentation/wedding/wedding_contract.dart';
+import 'package:wedding/feature/home/presentation/wedding/wedding_presenter_impl.dart';
 
 /// Fake Repository for testing WeddingPresenter
 class FakeWeddingRepository implements WeddingRepository {
@@ -17,13 +15,12 @@ class FakeWeddingRepository implements WeddingRepository {
 
   bool shouldThrowOnSave = false;
 
-  void addGuestBook(GuestBook guestBook) {
-    _guestBooks.add(guestBook);
-    _guestBooksController.add(_guestBooks);
-  }
-
   void emitGuestBooks(List<GuestBook> books) {
     _guestBooksController.add(books);
+  }
+
+  void emitError(Object error) {
+    _guestBooksController.addError(error);
   }
 
   @override
@@ -56,51 +53,174 @@ class FakeWeddingRepository implements WeddingRepository {
   }
 }
 
+/// Mock View for testing WeddingPresenter
+class MockWeddingView implements WeddingView {
+  final List<String> callLog = [];
+  List<GuestBook>? lastGuestBooks;
+  String? lastMessage;
+
+  @override
+  void showLoading() {
+    callLog.add('showLoading');
+  }
+
+  @override
+  void hideLoading() {
+    callLog.add('hideLoading');
+  }
+
+  @override
+  void showGuestBooks(List<GuestBook> guestBooks) {
+    callLog.add('showGuestBooks');
+    lastGuestBooks = guestBooks;
+  }
+
+  @override
+  void showSubmitLoading() {
+    callLog.add('showSubmitLoading');
+  }
+
+  @override
+  void hideSubmitLoading() {
+    callLog.add('hideSubmitLoading');
+  }
+
+  @override
+  void showSuccessMessage(String message) {
+    callLog.add('showSuccessMessage');
+    lastMessage = message;
+  }
+
+  @override
+  void showErrorMessage(String message) {
+    callLog.add('showErrorMessage');
+    lastMessage = message;
+  }
+
+  @override
+  void dismissDialog() {
+    callLog.add('dismissDialog');
+  }
+
+  @override
+  void clearInputFields() {
+    callLog.add('clearInputFields');
+  }
+
+  void reset() {
+    callLog.clear();
+    lastGuestBooks = null;
+    lastMessage = null;
+  }
+}
+
 void main() {
-  late ProviderContainer container;
   late FakeWeddingRepository fakeRepository;
+  late SaveGuestBookUseCase saveGuestBookUseCase;
+  late WeddingPresenterImpl presenter;
+  late MockWeddingView mockView;
 
   setUp(() {
     fakeRepository = FakeWeddingRepository();
-    container = ProviderContainer(
-      overrides: [
-        weddingRepositoryProvider.overrideWithValue(fakeRepository),
-        saveGuestBookUseCaseProvider.overrideWith(
-          (ref) => SaveGuestBookUseCase(fakeRepository),
-        ),
-      ],
+    saveGuestBookUseCase = SaveGuestBookUseCase(fakeRepository);
+    presenter = WeddingPresenterImpl(
+      repository: fakeRepository,
+      saveGuestBookUseCase: saveGuestBookUseCase,
     );
+    mockView = MockWeddingView();
+    presenter.setView(mockView);
   });
 
   tearDown(() {
+    presenter.dispose();
     fakeRepository.dispose();
-    container.dispose();
   });
 
   group('WeddingPresenter', () {
-    group('initial state', () {
-      test('should start with initial state', () {
-        final state = container.read(weddingPresenterProvider);
-
-        expect(state, isA<WeddingInitial>());
-      });
-    });
-
     group('loadGuestBooks', () {
-      test('should transition to loading state', () {
-        final presenter = container.read(weddingPresenterProvider.notifier);
-
+      test('should call showLoading when loading starts', () {
         presenter.loadGuestBooks('default');
 
-        final state = container.read(weddingPresenterProvider);
-        expect(state, isA<WeddingLoading>());
+        expect(mockView.callLog, contains('showLoading'));
+      });
+
+      test('should call hideLoading and showGuestBooks when data arrives', () async {
+        presenter.loadGuestBooks('default');
+
+        final testGuestBooks = [
+          GuestBook(
+            id: '1',
+            name: '홍길동',
+            message: '축하합니다!',
+            createdAt: DateTime.now(),
+          ),
+        ];
+
+        fakeRepository.emitGuestBooks(testGuestBooks);
+
+        // Stream 이벤트 처리 대기
+        await Future.delayed(Duration.zero);
+
+        expect(mockView.callLog, contains('hideLoading'));
+        expect(mockView.callLog, contains('showGuestBooks'));
+        expect(mockView.lastGuestBooks, equals(testGuestBooks));
+      });
+
+      test('should call showErrorMessage when stream emits error', () async {
+        presenter.loadGuestBooks('default');
+
+        fakeRepository.emitError(Exception('Network error'));
+
+        // Stream 이벤트 처리 대기
+        await Future.delayed(Duration.zero);
+
+        expect(mockView.callLog, contains('hideLoading'));
+        expect(mockView.callLog, contains('showErrorMessage'));
       });
     });
 
     group('submitGuestBook', () {
-      test('should do nothing if not in loaded state', () async {
-        final presenter = container.read(weddingPresenterProvider.notifier);
-        // loadGuestBooks를 호출하지 않음 (initial state)
+      test('should show error when name is empty', () async {
+        await presenter.submitGuestBook(
+          weddingId: 'default',
+          name: '',
+          message: '축하합니다!',
+        );
+
+        expect(mockView.callLog, contains('showErrorMessage'));
+        expect(mockView.lastMessage, contains('이름과 메시지를 입력해주세요'));
+      });
+
+      test('should show error when message is empty', () async {
+        await presenter.submitGuestBook(
+          weddingId: 'default',
+          name: '홍길동',
+          message: '',
+        );
+
+        expect(mockView.callLog, contains('showErrorMessage'));
+        expect(mockView.lastMessage, contains('이름과 메시지를 입력해주세요'));
+      });
+
+      test('should call correct sequence on successful submit', () async {
+        await presenter.submitGuestBook(
+          weddingId: 'default',
+          name: '홍길동',
+          message: '축하합니다!',
+        );
+
+        expect(mockView.callLog, containsAllInOrder([
+          'showSubmitLoading',
+          'hideSubmitLoading',
+          'clearInputFields',
+          'dismissDialog',
+          'showSuccessMessage',
+        ]));
+        expect(mockView.lastMessage, contains('방명록이 등록되었습니다'));
+      });
+
+      test('should show error on submit failure', () async {
+        fakeRepository.shouldThrowOnSave = true;
 
         await presenter.submitGuestBook(
           weddingId: 'default',
@@ -108,13 +228,23 @@ void main() {
           message: '축하합니다!',
         );
 
-        // 아무 일도 일어나지 않아야 함
-        final savedBooks = await fakeRepository.getGuestBooks('default');
-        expect(savedBooks, isEmpty);
+        expect(mockView.callLog, contains('showSubmitLoading'));
+        expect(mockView.callLog, contains('hideSubmitLoading'));
+        expect(mockView.callLog, contains('showErrorMessage'));
+        expect(mockView.lastMessage, contains('등록 실패'));
       });
     });
 
-    // Note: Stream-based tests are skipped due to timing issues in test environment.
-    // The stream functionality is tested indirectly through repository tests.
+    group('dispose', () {
+      test('should set view to null', () async {
+        presenter.dispose();
+
+        // dispose 후 메서드 호출해도 에러 없어야 함 (null-safe)
+        presenter.loadGuestBooks('default');
+
+        // 아무 콜도 추가되지 않아야 함
+        expect(mockView.callLog, isEmpty);
+      });
+    });
   });
 }

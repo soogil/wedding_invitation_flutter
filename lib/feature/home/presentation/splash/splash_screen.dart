@@ -1,112 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wedding/core/router/app_pages.dart';
 import 'package:wedding/core/util/bgm_player.dart';
 
+/// 스플래시 스크린 (HookWidget 적용)
+class SplashScreen extends HookWidget {
+  const SplashScreen({super.key});
 
-class SplashScreen extends StatefulWidget {
-  final Widget child;
-
-  const SplashScreen({super.key, required this.child});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  bool _isLoading = true;
-  bool _isInitialized = false;
-  late AnimationController _fadeController;
-
-  // 인트로 화면에 필요한 필수 이미지만 프리로드
   static const List<String> _criticalAssets = [
     'assets/hero2.jpg', // 인트로 배경 이미지
   ];
 
   @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      vsync: this,
+  Widget build(BuildContext context) {
+    final fadeController = useAnimationController(
       duration: const Duration(milliseconds: 500),
     );
-  }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // didChangeDependencies는 여러 번 호출될 수 있으므로 한 번만 실행
-    if (!_isInitialized) {
-      _isInitialized = true;
-      _initializeApp();
-    }
-  }
+    final isInitialized = useState(false);
 
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    super.dispose();
-  }
+    useEffect(() {
+      if (isInitialized.value) return null;
+      isInitialized.value = true;
 
-  Future<void> _initializeApp() async {
-    try {
-      AudioManager().init().catchError((e) {
-        debugPrint('AudioManager init error: $e');
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        try {
+          AudioManager().init().catchError((e) {
+            debugPrint('AudioManager init error: $e');
+          });
+
+          for (final asset in _criticalAssets) {
+            try {
+              await precacheImage(AssetImage(asset), context);
+            } catch (e) {
+              debugPrint('Failed to precache $asset: $e');
+            }
+          }
+        } catch (e) {
+          debugPrint('SplashScreen init error: $e');
+        }
+
+        try {
+          await fadeController.forward();
+        } catch (e) {
+          debugPrint('Animation error: $e');
+        }
+
+        if (context.mounted) {
+          context.go(AppPage.weddingAnnounce.path);
+        }
       });
-
-      _precacheCriticalImages();
-    } catch (e) {
-      debugPrint('SplashScreen init error: $e');
-    }
-
-    if (mounted) {
-      try {
-        await _fadeController.forward();
-      } catch (e) {
-        debugPrint('Animation error: $e');
-      }
-      setState(() => _isLoading = false);
-    }
-  }
-
-  Future<void> _precacheCriticalImages() async {
-    for (final asset in _criticalAssets) {
-      try {
-        await precacheImage(AssetImage(asset), context);
-      } catch (e) {
-        debugPrint('Failed to precache $asset: $e');
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!_isLoading) {
-      return widget.child;
-    }
+      return null;
+    }, const []);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF6F2EA),
       body: Center(
         child: AnimatedBuilder(
-          animation: _fadeController,
+          animation: fadeController,
           builder: (context, child) {
             return Opacity(
-              opacity: 1.0 - _fadeController.value,
+              opacity: 1.0 - fadeController.value,
               child: child,
             );
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 하트 아이콘
               Icon(
                 Icons.favorite,
                 size: 60.sp,
                 color: Colors.pink[300],
               ),
               SizedBox(height: 24.h),
-              // 타이틀
               Text(
                 '김수길 ❤️ 유연정',
                 style: TextStyle(

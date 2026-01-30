@@ -1,10 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wedding/core/router/app_pages.dart';
 import 'package:wedding/feature/home/presentation/splash/splash_screen.dart';
-import 'package:wedding/feature/home/presentation/wedding/gallery_view.dart';
-import 'package:wedding/feature/home/presentation/wedding/intro_ourselves_view.dart';
+import 'package:wedding/feature/home/presentation/wedding/views/gallery_view.dart';
+import 'package:wedding/feature/home/presentation/wedding/views/intro_ourselves_view.dart';
 import 'package:wedding/feature/home/presentation/wedding/wedding_announcement_page.dart';
 
 part 'app_router.g.dart';
@@ -12,14 +12,17 @@ part 'app_router.g.dart';
 @riverpod
 GoRouter appRouter(Ref ref) {
   return GoRouter(
-    initialLocation: AppPage.weddingAnnounce.path,
+    initialLocation: AppPage.splash.path,
     routes: [
+      GoRoute(
+        path: AppPage.splash.path,
+        name: AppPage.splash.name,
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: AppPage.weddingAnnounce.path,
         name: AppPage.weddingAnnounce.name,
-        builder: (context, state) => const SplashScreen(
-          child: WeddingAnnouncementPage(),
-        ),
+        builder: (context, state) => const WeddingAnnouncementPage(),
       ),
       GoRoute(
         path: AppPage.photo.path,
